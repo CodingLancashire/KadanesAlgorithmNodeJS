@@ -1,0 +1,89 @@
+<html>
+    <head>
+    <title>Algorithms API.</title>    
+    </head>
+    <body>
+
+
+
+<div id="algorithm_form">
+<h1>Ellis - Code Sample</h1>
+<h3>This project utilises Kadanes algorithm, </br> to find the maximum sub-array of a list of numbers. </h3>
+
+<h5> This project validates input client-side. However, it is only used by me.</h5> 
+
+<label for="algorithms"> Choose an algorithm: </label>
+
+<select name="algorithms" id="algorithms_selection">
+<option value="Kadanes"> Kadanes algorithm</option>
+</select>
+
+<h3> List of numbers</h3>
+<p> Enter numbers in the field below, separated by a space.</p>
+<p id="algorithm_description">Example: 22 15 789 12 -456</p>
+<input type = "text" id="kadanesInput"> 
+<input type="button" value="Generate Sub-Array" onClick="getKadanes()">
+
+<h1>The largest sub-array: </h1>
+<h2 id="number"></h2> 
+
+
+
+
+</div>
+    </body>
+
+    <script>
+        
+
+async function getKadanes()
+{
+let url = "http://localhost:3000/kadanes/" + document.getElementById("kadanesInput").value;
+
+if(document.getElementById("kadanesInput").value.length < 1)
+{
+    alert("Error nothing entered");
+}
+
+else
+{
+    try
+{
+
+    let response = await fetch(url);
+    console.log('ResponseObject: ', response);
+    let stringObj = await response.text();
+    console.log(stringObj);
+
+    let whereToDisplay = document.getElementById("number");
+    whereToDisplay.innerText = stringObj;
+
+    return stringObj;
+
+
+} catch(error)
+{
+    //Error with function - Debugging.
+    console.log(error);
+}
+}
+
+}
+    </script>
+
+<style>
+    body
+    {
+        font-family: Arial;
+    }
+
+    #algorithm_form
+    {
+        width: 60%;
+        height: auto;
+        background-color: #7dffa0;
+    }
+</style>
+
+    
+</html>
